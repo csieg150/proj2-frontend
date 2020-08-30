@@ -3,7 +3,8 @@
 // The list of file replacements can be found in `angular.json`.
 
 export const environment = {
-  production: false
+  production: false,
+  baseUrl: 'http://project2staticbackend-env.eba-bus4jjjt.us-east-2.elasticbeanstalk.com/api'
 };
 
 /*
