@@ -24,15 +24,14 @@ export class UserService {
     const httpHead = {
       headers: new HttpHeaders({
         'Content-Type': 'application/json',
-        'Access-Control-Allow-Origin': '*',
-        observe: 'response'
+        'Access-Control-Allow-Origin': '*'
       })
     };
     // We send our 'input' as the body of our request
     return this.httpClient.post<userResponse>(this.url, input, httpHead);
   }
 
-  signup(input: SignupForm): Observable<string>{
+  signup(input: SignupForm): Observable<userResponse>{
     const httpHead = {
       headers: new HttpHeaders({
         'Content-Type': 'application/json',
@@ -40,6 +39,6 @@ export class UserService {
       })
     };
     // We send our 'input' as the body of our request
-    return this.httpClient.put<string>(this.url, input, httpHead);
+    return this.httpClient.put<userResponse>(this.url, input, httpHead);
   }
 }
