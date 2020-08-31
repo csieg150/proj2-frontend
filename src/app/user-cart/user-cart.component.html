@@ -15,10 +15,10 @@
     </thead>
     <tbody>
       <tr *ngFor="let item of cart">
-        <td>{{item.name}}</td>
-        <td>{{item.artist}}</td>
+        <td>{{item.album_Title}}</td>
+        <td>{{item.artist_Id.artist_Name}}</td>
         <td>{{item.price | currency}}</td>
-        <td><button type="button" class="btn btn-outline-danger" (click)="deleteFromCart(item.id)">X</button></td>
+        <td><button type="button" class="btn btn-outline-danger" (click)="deleteFromCart(item.album_Id)">X</button></td>
       </tr>
     </tbody>
 </table>

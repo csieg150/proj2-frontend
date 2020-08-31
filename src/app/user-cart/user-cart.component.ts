@@ -10,6 +10,7 @@ import { Album } from '../models/Album';
 export class UserCartComponent implements OnInit {
   @Input() cart: Album[];
   totalPrice: number;
+  items: string[];
 
   constructor() { }
 
@@ -17,11 +18,11 @@ export class UserCartComponent implements OnInit {
   }
 
   deleteFromCart(id: number): void {
-    const indexOfId = (album: Album) => album.id === id; // Callback function for find index
+    const indexOfId = (album: Album) => album.album_Id === id; // Callback function for find index
     const albumIndex = this.cart.findIndex(indexOfId); // Perform the search
     const chosenAlbum = this.cart.splice(albumIndex - 1, 1);
     console.log(chosenAlbum);
-    console.log(`${chosenAlbum[0].name} removed to cart`);
+    console.log(`${chosenAlbum[0].album_Title} removed to cart`);
     this.getTotalPrice();
   }
 
@@ -34,8 +35,22 @@ export class UserCartComponent implements OnInit {
   }
 
   purchase(): void{
-    this.cart = [];
-    console.log('Purchased!');
+    this.items = [];
+    if (this.cart.length === 0){
+      alert('Must have items in cart to purchase!');
+      return;
+    }
+    for (const item of this.cart){
+      this.items.push(item.album_Title);
+    }
+    console.log(this.items);
+    console.log(this.items.join('\n'));
+    if (confirm('Do you wish to purchase: \n' + (this.items.join('\n')) + '\n for $' + this.totalPrice.toFixed(2) + '?') === true){
+      this.cart.splice(0, this.cart.length);
+      alert('Purchase confirmed!');
+    } else{
+      alert('Transaction cancelled');
+    }
   }
 
 }
