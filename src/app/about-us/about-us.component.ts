@@ -25,7 +25,6 @@ img:string[] = [
     const url = 'https://jsonplaceholder.typicode.com/photos?albumId=1';
     this.http.get(url).subscribe((res) => {
       this.data = res;
-      console.log(this.data);
     });
 }
 

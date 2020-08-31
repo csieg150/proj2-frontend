@@ -29,14 +29,11 @@ export class LoginComponent implements OnInit {
       username: this.username,
       password: this.password
     };
-    console.log(login);
     this.userService.login(login).subscribe(
       data => {
-        console.log(data);
         this.loginAccess.emit(data.firstName + ' ' + data.lastName);
       },
       error => {
-        console.log(error);
         this.error = true;
       }
     );

@@ -48,7 +48,7 @@ export class AlbumListComponent implements AfterViewInit {
     this.albumList = this.wholeList.filter(this.hasSearchTitle.bind(this));
     this.albumList = this.albumList.filter(this.hasSearchGenre.bind(this));
     this.albumList = this.albumList.filter(this.hasSearchArtist.bind(this));
-    console.log(`Search title: ${this.searchTitle} - Search Genre: ${this.searchGenre} - Search Artist ${this.searchArtist}`);
+    // console.log(`Search title: ${this.searchTitle} - Search Genre: ${this.searchGenre} - Search Artist ${this.searchArtist}`);
   }
 
   // Used for Filter of Album List. If the title of the album matches the given
@@ -126,7 +126,6 @@ export class AlbumListComponent implements AfterViewInit {
         }
       }
     );
-    console.log(this.genreList);
     this.loaded = true;
     return this.wholeList;
   }

@@ -44,14 +44,12 @@ export class SignupComponent implements OnInit {
       lastName: this.lastName,
       email: this.email
     };
-    console.log(signUp);
     this.userService.signup(signUp).subscribe(
       data => {
         this.signupAccess.emit(data.firstName + ' ' + data.lastName);
       },
       error => {
         this.error = true;
-        console.log(error);
       }
     );
 
