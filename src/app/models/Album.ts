@@ -1,11 +1,15 @@
-export class Album{
+import {Artist} from 'src/app/models/Artist';
+import {Genre} from 'src/app/models/Genre';
+
+export interface Album{
     // This will be our Album model to catch all data from our backend.
-    id: number; // album id
-    name: string; // Album's Name
-    art: string; // Cover Art of the album
-    artist: string; // Artist who produced the albums
-    genre: string; // Main genre of music
+    // Formatted to match the returned data
+    description: string; // Album Description
+    album_Id: number; // album id
     price: number; // Cost of the album
-    // Song list? not sure yet
-    // download Url? not sure yet
+    album_Title: string; // Album's Name
+    album_Art: string; // URL to Cover Art of the album
+    year_Released: number; // yyyy-mm-dd hh:mm:ss-ms ? Comes back as a long number from Postgres
+    artist_Id: Artist; // Artist who produced the albums
+    genre_Id: Genre; // Main genre of music
 }

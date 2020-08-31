@@ -27,14 +27,14 @@ export class AlbumBannerComponent implements OnInit {
    *  cart, it won't be changed.
    */
   updateCart(givenAlbum: Album): void{
-    const indexOfId = (album: Album) => album.id === givenAlbum.id; // Callback function for find index
+    const indexOfId = (album: Album) => album.album_Id === givenAlbum.album_Id; // Callback function for find index
     const albumIndex = this.cart.findIndex(indexOfId); // Perform the search
     if (albumIndex !== -1){
-      console.log(`${givenAlbum.name} was already in the cart.`);
+      console.log(`${givenAlbum.album_Title} was already in the cart.`);
       return; // If we can find the an ID, it's already in the cart. No duplicates.
     }
     this.cart.push(givenAlbum);
-    console.log(`Yep, ${givenAlbum.name} was added.`);
+    console.log(`Yep, ${givenAlbum.album_Title} was added.`);
   }
 
   updateUser(signedIn: boolean): void{

@@ -1,5 +1,5 @@
 // Represents user input login credentials
-export class LoginForm {
+export interface LoginForm {
     username: string;
     password: string;
 }
