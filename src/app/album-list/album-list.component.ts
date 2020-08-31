@@ -1,6 +1,8 @@
-import { Component, OnInit, EventEmitter, Output, AfterViewInit, Input } from '@angular/core';
+import { Component, OnInit, EventEmitter, Output, AfterViewInit, Input, ɵALLOW_MULTIPLE_PLATFORMS } from '@angular/core';
 import { AlbumServiceService } from '../services/album-service.service';
 import { Album } from '../models/Album';
+import { Artist } from '../models/Artist';
+import { Genre } from '../models/Genre';
 
 @Component({
   selector: 'app-album-list',
@@ -13,6 +15,8 @@ export class AlbumListComponent implements AfterViewInit {
   @Output() toCart: EventEmitter<Album> = new EventEmitter();
 
   albumList: Album[]; // Represents list + any search values
+  artistList: Artist[]; // represents a list of all artists
+  genreList: Genre[]; // represents a list of all genres
   wholeList: Album[]; // Represents entire list of albums without search features
   searchTitle: string; // Represents Title to search by
   searchGenre: number; // Represents Genre to search by
@@ -25,6 +29,8 @@ export class AlbumListComponent implements AfterViewInit {
     // this.getAlbums();
     this.searchTitle = '';
     this.isClicked = false;
+    this.searchGenre = -1;
+    this.searchArtist = -1;
    }
 
   ngAfterViewInit(): void {
@@ -40,6 +46,8 @@ export class AlbumListComponent implements AfterViewInit {
 
   search(): void {
     this.albumList = this.wholeList.filter(this.hasSearchTitle.bind(this));
+    this.albumList = this.albumList.filter(this.hasSearchGenre.bind(this));
+    this.albumList = this.albumList.filter(this.hasSearchArtist.bind(this));
     console.log(`Search title: ${this.searchTitle} - Search Genre: ${this.searchGenre} - Search Artist ${this.searchArtist}`);
   }
 
@@ -55,19 +63,71 @@ export class AlbumListComponent implements AfterViewInit {
     return false;
   }
 
+  // Used for Filter of Album list. If the genre of the album matches the given
+  // genre id based on the given ID, it'll be included in our searched array.
+  hasSearchGenre(element: Album, index, array): boolean{
+    if (this.searchGenre === -1){
+      return true;
+    }
+    const searchBy = this.searchGenre;
+    if (element.genre_Id.genre_Id === this.searchGenre){
+      return true;
+    }
+    return false;
+  }
+
+  // Used for Filter of Album list. If the artist of the album matches the given
+  // artist id based on the given ID, it'll be included in our searched array.
+  hasSearchArtist(element: Album, index, array): boolean{
+    if (this.searchArtist === -1){
+      return true;
+    }
+    const searchBy = this.searchArtist;
+    if (element.artist_Id.artist_Id === this.searchArtist){
+      return true;
+    }
+    return false;
+  }
+
+  // Fetches the entire Album list, as well as all Genres and Artists
   getAlbums(): Album[]{
     this.isClicked = true;
     this.wholeList = [];
+    this.artistList = [];
+    this.genreList = [];
     this.albumServ.getAlbums().subscribe(
       response => {
-        console.log(response);
         for (const album of response){
           this.wholeList.push(album);
         }
         this.albumList = this.wholeList;
-        this.loaded = true;
       }
     );
+    this.albumServ.getArtists().subscribe(
+      response => {
+        this.artistList.push({
+          artist_Id: -1,
+          artist_Name: 'All',
+          artist_Year: 0
+        });
+        for (const artist of response){
+          this.artistList.push(artist);
+        }
+      }
+    );
+    this.albumServ.getGenres().subscribe(
+      response => {
+        this.genreList.push({
+          genre_Id: -1,
+          genre_Name: 'All'
+        });
+        for (const genre of response){
+          this.genreList.push(genre);
+        }
+      }
+    );
+    console.log(this.genreList);
+    this.loaded = true;
     return this.wholeList;
   }
 }
