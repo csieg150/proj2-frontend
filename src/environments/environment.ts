@@ -4,7 +4,7 @@
 
 export const environment = {
   production: false,
-  baseUrl: 'http://localhost:8080/phase-3/api'
+  baseUrl: 'http://project2staticbackend-env.eba-bus4jjjt.us-east-2.elasticbeanstalk.com/api'
 };
 
 // Tomcat Localhost Base URL:
