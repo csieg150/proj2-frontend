@@ -15,19 +15,15 @@ export class AlbumServiceService {
   genreURL = environment.baseUrl + '/genres';
   artistURL = environment.baseUrl + '/artists';
 
-  constructor(private httpClient: HttpClient) { 
-    console.log("Album service started");
-  }
+  constructor(private httpClient: HttpClient) { }
 
   getAlbums(): Observable<Album[]> {
-    console.log("request received");
     const httpHead = {
       headers: new HttpHeaders({
         'Content-Type': 'application/json',
         'Access-Control-Allow-Origin': '*', // ABSOLUTELY necessary. Allows control from the API
       })
     };
-    console.log("About to call " + this.albumURL);
     return this.httpClient.get<Album[]>(this.albumURL, httpHead);
   }
 
