@@ -11,6 +11,7 @@ export class AlbumBannerComponent implements OnInit {
   cart: Album[];
   userLoggedIn: boolean;
   activeId: number;
+  userName: string;
 
   constructor() {
     this.cart = []; // Needs to be initially empty to properly set up the HTML view
@@ -30,16 +31,17 @@ export class AlbumBannerComponent implements OnInit {
     const indexOfId = (album: Album) => album.album_Id === givenAlbum.album_Id; // Callback function for find index
     const albumIndex = this.cart.findIndex(indexOfId); // Perform the search
     if (albumIndex !== -1){
-      console.log(`${givenAlbum.album_Title} was already in the cart.`);
+      // console.log(`${givenAlbum.album_Title} was already in the cart.`);
       return; // If we can find the an ID, it's already in the cart. No duplicates.
     }
     this.cart.push(givenAlbum);
-    console.log(`Yep, ${givenAlbum.album_Title} was added.`);
+    // console.log(`Yep, ${givenAlbum.album_Title} was added.`);
   }
 
-  updateUser(signedIn: boolean): void{
-    this.userLoggedIn = signedIn;
+  updateUser(signedIn: string): void{
+    this.userLoggedIn = true;
     this.activeId = 1;
+    this.userName = signedIn;
   }
 
 }
