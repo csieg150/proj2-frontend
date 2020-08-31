@@ -16,6 +16,7 @@
       <a ngbNavLink>Login / Sign Up</a>
       <ng-template ngbNavContent><app-user-access (userAccess)="updateUser($event)"></app-user-access></ng-template>
     </li>
+    <div class="navbar-brand" *ngIf="userLoggedIn">Welcome, {{userName}}</div>
   </ul>
   <div [ngbNavOutlet]="nav"></div>
   
