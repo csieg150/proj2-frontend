@@ -6,19 +6,15 @@ import { Component, OnInit, Output, EventEmitter } from '@angular/core';
   styleUrls: ['./user-access.component.css']
 })
 export class UserAccessComponent implements OnInit {
-  @Output() userAccess: EventEmitter<boolean> = new EventEmitter();
+  @Output() userAccess: EventEmitter<string> = new EventEmitter();
 
   constructor() { }
 
   ngOnInit(): void {
   }
 
-  signUp(status: boolean): void{
-    this.userAccess.emit(status);
-  }
-
-  login(status: boolean): void{
-    this.userAccess.emit(status);
+  userAccessed(name: string): void{
+    this.userAccess.emit(name);
   }
 
 }
