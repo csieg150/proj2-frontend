@@ -46,3 +46,7 @@ a:link {
   .loader:hover{
     cursor: pointer;
   }
+
+  .loader{
+    margin-top: 3em;
+  }
