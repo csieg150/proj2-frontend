@@ -1,5 +1,6 @@
 import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { UserService } from '../services/user.service';
+import { SignupForm } from '../models/SignupForm';
 
 @Component({
   selector: 'app-signup',
@@ -13,6 +14,8 @@ export class SignupComponent implements OnInit {
   username: string;
   password: string;
   email: string;
+  error: boolean;
+  errorEmptyField: boolean;
 
   constructor(private userService: UserService) {
     this.firstName = '';
@@ -20,12 +23,37 @@ export class SignupComponent implements OnInit {
     this.username = '';
     this.password = '';
     this.email = '';
+    this.error = false;
+    this.errorEmptyField = false;
    }
 
   ngOnInit(): void {
   }
 
   signup(): void{
+    if (this.username === '' || this.password === '' || this.email === '' || this.firstName === '' || this.lastName === '' ){
+      this.errorEmptyField = true;
+      return;
+    }
+    this.errorEmptyField = false;
+    this.error = false;
+    const signUp: SignupForm = {
+      username: this.username,
+      password: this.password,
+      firstName: this.firstName,
+      lastName: this.lastName,
+      email: this.email
+    };
+    console.log(signUp);
+    this.userService.signup(signUp).subscribe(
+      data => {
+        this.signupAccess.emit(data.firstName + ' ' + data.lastName);
+      },
+      error => {
+        this.error = true;
+        console.log(error);
+      }
+    );
 
     // this.signupAccess.emit(true);
   }
