@@ -4,8 +4,14 @@
 
 export const environment = {
   production: false,
-  baseUrl: 'http://project2staticbackend-env.eba-bus4jjjt.us-east-2.elasticbeanstalk.com/api'
+  baseUrl: 'http://localhost:8080/phase-3/api'
 };
+
+// Tomcat Localhost Base URL:
+// http://localhost:8080/phase-3/api
+
+// Beanstalk Base URL:
+// http://project2staticbackend-env.eba-bus4jjjt.us-east-2.elasticbeanstalk.com/api
 
 /*
  * For easier debugging in development mode, you can import the following file

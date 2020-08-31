@@ -3,6 +3,7 @@ import { environment } from 'src/environments/environment';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { LoginForm } from 'src/app/models/LoginForm';
+import { SignupForm } from 'src/app/models/SignupForm';
 
 @Injectable({
   providedIn: 'root'
@@ -22,5 +23,16 @@ export class UserService {
     };
     // We send our 'input' as the body of our request
     return this.httpClient.post<string>(this.url, input, httpHead);
+  }
+
+  signup(input: SignupForm): Observable<string>{
+    const httpHead = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+        'Access-Control-Allow-Origin': '*'
+      })
+    };
+    // We send our 'input' as the body of our request
+    return this.httpClient.put<string>(this.url, input, httpHead);
   }
 }

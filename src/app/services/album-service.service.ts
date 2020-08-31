@@ -1,42 +1,55 @@
 
 import { Injectable } from '@angular/core';
 import { Album } from '../models/Album';
+import { Observable } from 'rxjs';
+import { environment } from 'src/environments/environment';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { Genre } from '../models/Genre';
+import { Artist } from '../models/Artist';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AlbumServiceService {
+  albumURL = environment.baseUrl + '/albums';
+  genreURL = environment.baseUrl + '/genres';
+  artistURL = environment.baseUrl + '/artists';
 
-  constructor() { }
-
-  getAlbums(): Album[] {
-    const albums: Album[] = [
-      {
-        id: 0,
-        name: 'Good Old Organ Ice',
-        art: 'https://files.freemusicarchive.org/storage-freemusicarchive-org/images/albums/Lobo_Loco_-_Good_Old_Organ_Ice_-_2019030233452214.jpg?width=290&height=290',
-        artist: 'Lobo Loco',
-        genre: 'Old-time',
-        price: 4.99
-      },
-      {
-        id: 1,
-        name: 'It Rains - Abstract Jazz',
-        art: 'https://files.freemusicarchive.org/storage-freemusicarchive-org/images/albums/Mid-Air_Machine_-_Night_Ward__Abstract_Jazz_-_2018072380709577.jpg?width=290&height=290',
-        artist: 'Mid-Air Machine',
-        genre: 'Jazz',
-        price: 2.99
-      },
-      {
-        id: 2,
-        name: 'Arps',
-        art: 'https://files.freemusicarchive.org/storage-freemusicarchive-org/images/albums/Chad_Crouch_-_Arps_-_20190913144052757.jpg?width=290&height=290',
-        artist: 'Chad Crouch',
-        genre: 'Electronic',
-        price: 3.99
-      }
-    ];
-    return albums;
+  constructor(private httpClient: HttpClient) { 
+    console.log("Album service started");
   }
+
+  getAlbums(): Observable<Album[]> {
+    console.log("request received");
+    const httpHead = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+        'Access-Control-Allow-Origin': '*', // ABSOLUTELY necessary. Allows control from the API
+      })
+    };
+    console.log("About to call " + this.albumURL);
+    return this.httpClient.get<Album[]>(this.albumURL, httpHead);
+  }
+
+  getGenres(): Observable<Genre[]>{
+    const httpHead = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+        'Access-Control-Allow-Origin': '*', // ABSOLUTELY necessary. Allows control from the API
+      })
+    };
+    return this.httpClient.get<Genre[]>(this.genreURL, httpHead);
+  }
+
+  getArtists(): Observable<Artist[]>{
+    const httpHead = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+        'Access-Control-Allow-Origin': '*', // ABSOLUTELY necessary. Allows control from the API
+      })
+    };
+    return this.httpClient.get<Artist[]>(this.artistURL, httpHead);
+  }
+
 }
 
